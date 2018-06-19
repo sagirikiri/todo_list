@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="main.css">
+  <title>Todoリスト</title>
+</head>
+<body>
+  <div id="app">
+    {{computedTodos.length}}件表示中・・・
+    <label v-for="label in options">
+        <input type="radio" 
+        v-model="current"
+        v-bind:value="label.value"
+        >{{label.label}}
+    </label> 
+    <table>
+      <thead>
+      <tr>
+          <th class="id">ID</th>
+          <th class="comment">タスク</th>
+          <th class="state">状態</th>
+          <th class="button">-</th>  
+      </tr>
+      </thead>
+      <tbody>
+        <tr v-for="item in computedTodos" v-bind:key="item.id">
+          <th>{{item.id}}</th>
+          <td >{{item.comment}}</td>
+          <td class="state">
+            <button v-on:click="doChangeState(item)">{{labels[item.state]}}</button>
+          </td>
+          <td class="button">
+            <button v-on:click="doRemove(item)">削除</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <h2>新しいタスクの追加</h2>
+    <form class="add-form" v-on:submit="doAdd">
+      コメント <input type="text" ref="comment">
+      <button type="submit">追加する</button>
+    </form>
+  </div>
+  <script type="text/javascript" src="vue.js"></script>
+  <script type="text/javascript" src="main.js"></script>
+</body>
+</html>
